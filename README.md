@@ -1,8 +1,68 @@
 # Wine Companion AI Phase 1
 
-Google Apps Script + Google Spreadsheet で動く、ワイン記録 API の Phase 1 実装です。ローカル編集は `clasp` 前提、配布物は `dist/Code.js` です。
+Wine Companion AI の Phase 1 実装です。Google Apps Script を Web App として公開し、GPTs から構造化されたワイン記録 JSON を受け取り、Google Spreadsheet の `WineLog` `WineSession` `UserProfile` に保存・集計します。
 
-## Project Structure
+このリポジトリの役割は次の 3 つです。
+
+- GPTs から呼べる安定した記録 API を提供する
+- raw JSON を失わず保存しつつ、検索・集計しやすい列も維持する
+- Laravel / NativePHP への後続移行に備えて、GAS 依存とドメインロジックを分離する
+
+## What This System Does
+
+Phase 1 の責務は次の通りです。
+
+- 1回のテイスティング記録を `WineLog` に保存する
+- 同じボトルの複数日の記録を `WineSession` に集約する
+- 全記録からユーザー嗜好を `UserProfile` に集約する
+- GPTs / 外部クライアントから `POST /exec` で操作できるようにする
+
+対象外です。
+
+- ネイティブアプリ UI
+- Laravel バックエンド本体
+- 高度な推薦エンジン
+- 認証基盤の本格実装
+
+## Architecture
+
+```text
+GPTs / External Client
+        |
+        v
+Google Apps Script Web App
+        |
+        v
+Google Spreadsheet
+  ├── WineLog
+  ├── WineSession
+  └── UserProfile
+```
+
+### Data Layers
+
+- `WineLog`
+  - 1 行 = 1 完全な tasting record
+  - `raw_json` が source of truth
+  - JSON 系列はすべて文字列化して保存
+- `WineSession`
+  - 1 行 = 1 bottle session
+  - 同じ `session_key` を持つ record 群を deterministic に集約
+- `UserProfile`
+  - 1 行 = 1 ユーザープロファイル
+  - `WineLog` 全体から再構築
+
+## Key Design Rules
+
+- `record_id` は 1 保存スナップショットのキー
+- `session_key` は同一ボトル体験の継続キー
+- `upsertRecord` は部分更新ではなく、完全な record を受け取る
+- `record_id` が既存なら `WineLog` 同一行を更新する
+- `raw_json` は `_api_key` を除いて保存する
+- inferred 情報は `meta.inferred_fields` に明示する
+- シート utility に業務ルールを埋め込まない
+
+## Repository Layout
 
 ```text
 .
@@ -11,46 +71,131 @@ Google Apps Script + Google Spreadsheet で動く、ワイン記録 API の Phas
 ├── appsscript.json
 ├── package.json
 ├── tsconfig.json
-├── src
+├── scripts/
+│   └── build.mjs
+├── src/
 │   ├── Code.ts
 │   ├── config.ts
-│   ├── api
-│   ├── domain
-│   ├── infra
-│   └── tests
-├── scripts
-│   └── build.mjs
-└── dist
-    └── Code.js
+│   ├── api/
+│   │   ├── handlers.ts
+│   │   └── router.ts
+│   ├── domain/
+│   │   ├── validation.ts
+│   │   ├── wineLog.ts
+│   │   ├── wineSession.ts
+│   │   └── userProfile.ts
+│   ├── infra/
+│   │   ├── dates.ts
+│   │   ├── ids.ts
+│   │   ├── json.ts
+│   │   ├── sheets.ts
+│   │   └── slug.ts
+│   └── tests/
+│       └── fixtures.ts
+└── dist/
+    ├── Code.js
+    └── appsscript.json
 ```
 
-## Setup
+### Source Ownership
 
-1. `clasp login`
-2. GAS プロジェクトを作成済みなら Script ID を取得
-3. `.clasp.json` の `scriptId` を置き換える
-4. Apps Script の Script Properties に次を設定
-   - `SPREADSHEET_ID`: 書き込み先 Spreadsheet ID
-   - `API_KEY`: 任意。未設定なら認証なし
-5. `npm run build`
-6. `clasp push`
+- `src/` を編集対象とする
+- `dist/Code.js` は `npm run build` で生成する
+- Apps Script エディタは Script Properties 設定、動作確認、deploy のみに使う
 
-## Local Development Policy
+## Requirements
 
-- ソース編集は `src/` のみ
-- `dist/Code.js` は `npm run build` で生成
-- Apps Script エディタでは deploy と Script Properties 確認のみ行う
-- シート構造変更は `src/config.ts` の列定義を先に更新する
+- Node.js 24 以上
+- npm 11 以上
+- `clasp` 3 系
+- Google Apps Script プロジェクト
+- Google Spreadsheet
 
-## Sheets
+参考コマンド:
 
-- `WineLog`: 1行 = 1 complete tasting record
-- `WineSession`: 1行 = 1 bottle session
-- `UserProfile`: 1行 = aggregate profile
+```bash
+node -v
+npm -v
+clasp -v
+```
 
-`setupSheets()` を Apps Script から一度実行すると 3 シートが初期化されます。
+## Initial Setup
 
-## API Actions
+### 1. Install and Authenticate clasp
+
+```bash
+clasp login
+```
+
+### 2. Configure Script ID
+
+[`/.clasp.json`](/Users/zero/WorkSpace/Wine-companion-ai/.clasp.json) の `scriptId` を対象 Apps Script の Script ID に設定します。
+
+### 3. Create Script Properties
+
+Apps Script の `Project Settings > Script properties` に次を設定します。
+
+- `SPREADSHEET_ID`
+  - 保存先 Spreadsheet の ID
+- `API_KEY`
+  - 任意の共有シークレット
+  - GPTs を `Authentication: None` で使う場合も、body の `_api_key` に同じ値を送る
+
+### 4. Build and Push
+
+```bash
+npm run build
+clasp push
+```
+
+### 5. Initialize Sheets
+
+Apps Script エディタで `setupSheets()` を 1 回実行します。次の 3 シートが作成されます。
+
+- `WineLog`
+- `WineSession`
+- `UserProfile`
+
+### 6. Deploy Web App
+
+Apps Script の `Deploy > Manage deployments` から Web App を作成または更新します。
+
+推奨設定:
+
+- Execute as: `Me`
+- Who has access: `Anyone`
+
+GPTs から直接呼ぶため、`Anyone` が必要です。
+
+## Development Workflow
+
+通常の更新手順です。
+
+```bash
+npm run build
+clasp push
+```
+
+Web App に変更を反映する場合は、push 後に deployment version を更新します。
+
+推奨フロー:
+
+1. `src/` を編集
+2. `npm run build`
+3. `clasp push`
+4. Apps Script で Web App を redeploy
+5. `curl` で `health` を確認
+6. 必要なら GPTs 側で `health` / `upsertRecord` を確認
+
+## API Overview
+
+単一エンドポイントを action-dispatch で使います。
+
+- Method: `GET` or `POST`
+- Path: `/exec`
+- Main usage: `POST`
+
+実装済み action:
 
 - `health`
 - `upsertRecord`
@@ -61,12 +206,89 @@ Google Apps Script + Google Spreadsheet で動く、ワイン記録 API の Phas
 - `rebuildSession`
 - `rebuildUserProfile`
 
-## Sample Requests
+### Authentication
+
+現在の運用では、GPTs との相性を優先して `Authentication: None` + body `_api_key` を推奨します。
+
+- `POST` body の `_api_key`
+- または query `api_key`
+
+Apps Script の `API_KEY` が未設定なら認証は無効です。
+
+## Data Model Summary
+
+### WineLog
+
+主な列:
+
+- `record_id`
+- `session_key`
+- `date`
+- `opened_on`
+- `open_day`
+- `type`
+- `name`
+- `grape_varieties_json`
+- `aroma_json`
+- `paired_dishes_json`
+- `tags_json`
+- `meta_inferred_fields_json`
+- `raw_json`
+- `created_at`
+- `updated_at`
+- `deleted_flag`
+
+### WineSession
+
+主な列:
+
+- `session_key`
+- `record_ids_json`
+- `latest_record_id`
+- `latest_open_day`
+- `days_logged`
+- `best_overall_score_5`
+- `latest_overall_score_5`
+- `best_pairing`
+- `final_impression`
+
+### UserProfile
+
+主な列:
+
+- `favorite_types_json`
+- `preferred_grapes_json`
+- `rating_pattern_json`
+- `best_pairings_json`
+- `avoid_patterns_json`
+- `top_regions_json`
+- `top_producers_json`
+- `summary`
+- `source_record_count`
+
+## Session Aggregation Rules
+
+- `session_key` は `{opened_on}_{slug(name)}_{slug(location)}`
+- 同じ `session_key` の `WineLog` を対象に `WineSession` を再構築する
+- `opened_on` 昇順、同順位では `open_day`、さらに `updated_at` の順で処理する
+- `latest_*` は最大 `open_day` かつ最新 `updated_at` の record から取る
+- `best_pairing` は最高評価 record の料理候補から決める
+- `final_impression` は最新 record の `summary_jp`、なければ `overall_comment`
+
+## Profile Aggregation Rules
+
+- 対象は `deleted_flag != true` の `WineLog`
+- 高評価の閾値は `overall_score_5 >= 4.0`
+- 低評価傾向は `overall_score_5 < 3.0`
+- タイプ、品種、料理、地域、生産者ごとに件数と平均点を集計
+- `UserProfile` は 1 行運用
+
+## API Examples
 
 ### health
 
 ```bash
-curl -G "https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec" \
+curl -L -G "https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec" \
   --data-urlencode "action=health" \
   --data-urlencode "api_key=YOUR_API_KEY"
 ```
@@ -74,53 +296,55 @@ curl -G "https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec" \
 ### upsertRecord
 
 ```bash
-curl -X POST "https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec" \
+curl -L -X POST "https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec" \
   -H "Content-Type: application/json" \
   -d '{
     "action": "upsertRecord",
     "_api_key": "YOUR_API_KEY",
-    "date": "2026-03-07",
-    "opened_on": "2026-03-07",
+    "date": "2026-03-08",
+    "opened_on": "2026-03-08",
     "open_day": 1,
     "type": "Red",
-    "name": "Chateau Margaux 2015",
-    "vintage": 2015,
-    "producer": "Chateau Margaux",
+    "name": "Test Cabernet",
+    "vintage": 2021,
+    "producer": "Test Winery",
     "country": "France",
     "region": "Bordeaux",
-    "sub_region": "Margaux",
+    "sub_region": "Medoc",
     "location": "Home",
-    "grape_varieties": [{"name": "Cabernet Sauvignon", "percent": 87}],
+    "grape_varieties": [
+      { "name": "Cabernet Sauvignon", "percent": 100 }
+    ],
     "aroma": ["blackcurrant", "cedar"],
     "paired_dishes": {
-      "main": ["beef tenderloin"],
+      "main": ["steak"],
       "appetizer": [],
       "side": [],
       "dessert": [],
       "drink_other": []
     },
     "ratings": {
-      "color": 5,
-      "aroma": 5,
+      "color": 4,
+      "aroma": 4,
       "tannin": 4,
-      "acidity": 4,
-      "fruit": 5
+      "acidity": 3,
+      "fruit": 4
     },
-    "overall_score_5": 4.8,
+    "overall_score_5": 4.2,
     "overall_grade": "A",
     "scene": {
-      "people": "partner",
-      "style": "anniversary dinner",
-      "mood": "celebratory"
+      "people": "solo",
+      "style": "dinner",
+      "mood": "calm"
     },
     "repurchase_intent": "ぜひ",
-    "tags": ["special", "bordeaux"],
-    "overall_comment": "Structured and persistent.",
+    "tags": ["test"],
+    "overall_comment": "API test record",
     "meta": {
       "inferred_fields": [],
       "notes": "sample request"
     },
-    "summary_jp": "力強くエレガントな一本。",
+    "summary_jp": "接続確認用のテスト記録です。",
     "rebuild_profile": true
   }'
 ```
@@ -128,7 +352,7 @@ curl -X POST "https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec" \
 ### getRecord
 
 ```bash
-curl -X POST "https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec" \
+curl -L -X POST "https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec" \
   -H "Content-Type: application/json" \
   -d '{
     "action": "getRecord",
@@ -140,25 +364,25 @@ curl -X POST "https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec" \
 ### getSession
 
 ```bash
-curl -X POST "https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec" \
+curl -L -X POST "https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec" \
   -H "Content-Type: application/json" \
   -d '{
     "action": "getSession",
     "_api_key": "YOUR_API_KEY",
-    "session_key": "2026-03-07_chateau-margaux-2015_home"
+    "session_key": "2026-03-08_test-cabernet_home"
   }'
 ```
 
 ### findSession
 
 ```bash
-curl -X POST "https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec" \
+curl -L -X POST "https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec" \
   -H "Content-Type: application/json" \
   -d '{
     "action": "findSession",
     "_api_key": "YOUR_API_KEY",
-    "name": "Chateau Margaux 2015",
-    "opened_on": "2026-03-07",
+    "name": "Test Cabernet",
+    "opened_on": "2026-03-08",
     "location": "Home"
   }'
 ```
@@ -166,7 +390,7 @@ curl -X POST "https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec" \
 ### listRecentRecords
 
 ```bash
-curl -X POST "https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec" \
+curl -L -X POST "https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec" \
   -H "Content-Type: application/json" \
   -d '{
     "action": "listRecentRecords",
@@ -178,19 +402,19 @@ curl -X POST "https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec" \
 ### rebuildSession
 
 ```bash
-curl -X POST "https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec" \
+curl -L -X POST "https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec" \
   -H "Content-Type: application/json" \
   -d '{
     "action": "rebuildSession",
     "_api_key": "YOUR_API_KEY",
-    "session_key": "2026-03-07_chateau-margaux-2015_home"
+    "session_key": "2026-03-08_test-cabernet_home"
   }'
 ```
 
 ### rebuildUserProfile
 
 ```bash
-curl -X POST "https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec" \
+curl -L -X POST "https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec" \
   -H "Content-Type: application/json" \
   -d '{
     "action": "rebuildUserProfile",
@@ -198,19 +422,67 @@ curl -X POST "https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec" \
   }'
 ```
 
-## Deploy Safely
+## GPTs Integration Notes
 
-1. Script Properties に `SPREADSHEET_ID` と `API_KEY` を設定する
-2. `npm run build`
-3. `clasp push`
-4. Apps Script で Web App を deploy する
-5. 実行ユーザーは Spreadsheet にアクセス可能なアカウントを使う
-6. 公開範囲は最小化し、公開 URL は API_KEY 付きでのみ使う
-7. 変更ごとに新しい deployment version を切る
+現状の安定運用は次です。
+
+- Authentication: `None`
+- `POST` の body に `_api_key` を含める
+- `action` は `upsertRecord` など実装済み action 名に固定する
+
+推奨 instruction 例:
+
+```text
+このActionを使うときは、必ずPOSTで実行し、bodyに `_api_key` を含めること。
+`health`、`upsertRecord`、`getRecord`、`getSession`、`findSession`、`listRecentRecords`、`rebuildSession`、`rebuildUserProfile` 以外の action は使わないこと。
+`upsertRecord` では action に加えて、date, opened_on, open_day, type, name を必ず含めること。
+```
+
+## Validation Rules
+
+- `date`, `opened_on`, `type`, `name` は必須
+- `open_day` は整数かつ 1 以上
+- `type` は `Red|White|Rose|Sparkling|Orange|Cider|Sake|Other`
+- 数値列は number または null
+- 配列列に object や scalar を入れない
+- `upsertRecord` は完全なレコードを送る
 
 ## Troubleshooting
 
-- `Missing Script Property: SPREADSHEET_ID`: Script Properties を設定してください
-- `Invalid API key`: body の `_api_key` か query の `api_key` を見直してください
-- `action is required`: `POST /exec` body に action を含めてください
-- `Unknown action`: 実装済み action 名と完全一致しているか確認してください
+### `Missing Script Property: SPREADSHEET_ID`
+
+Apps Script の Script Properties に `SPREADSHEET_ID` を設定してください。
+
+### `Invalid API key`
+
+次を確認してください。
+
+- Apps Script 側の `API_KEY`
+- GPTs / `curl` が送る `_api_key` または `api_key`
+- 先頭末尾の空白や改行
+
+### `Moved Temporarily` が返る
+
+`script.google.com` はリダイレクトします。`curl` では `-L` を付けてください。
+
+### `The caller does not have permission`
+
+`clasp` にログインしている Google アカウントと、Apps Script プロジェクト所有アカウントが一致しているか確認してください。
+
+### GPTs だけ 401 になる
+
+GAS 側が正常でも、GPTs built-in API key auth が query に期待通り付かないことがあります。現行運用では `Authentication: None` + body `_api_key` を使ってください。
+
+## Verification Checklist
+
+- `npm run build` が成功する
+- `clasp push` が成功する
+- `health` が `status: ok` を返す
+- `upsertRecord` で `WineLog` に 1 行作成される
+- `getRecord` が `raw_json` を含めて返す
+- `getSession` が member records を返す
+- `rebuildUserProfile` が `source_record_count` を更新する
+
+## Operations
+
+日常運用と障害対応は [`runbook.md`](/Users/zero/WorkSpace/Wine-companion-ai/runbook.md) を参照してください。
