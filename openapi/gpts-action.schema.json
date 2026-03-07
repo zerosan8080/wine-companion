@@ -1,0 +1,473 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Wine Companion AI API for GPTs",
+    "version": "1.0.0",
+    "description": "GPTs action schema for the Wine Companion AI Google Apps Script Web App. Replace YOUR_DEPLOYMENT_ID and YOUR_API_KEY before use."
+  },
+  "servers": [
+    {
+      "url": "https://script.google.com"
+    }
+  ],
+  "paths": {
+    "/macros/s/YOUR_DEPLOYMENT_ID/exec": {
+      "post": {
+        "operationId": "callWineCompanionApi",
+        "summary": "Call Wine Companion AI GAS API",
+        "description": "Single action-dispatch endpoint for health checks, record upserts, session retrieval, and profile rebuilds.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiRequest"
+              },
+              "examples": {
+                "health": {
+                  "summary": "Health check",
+                  "value": {
+                    "action": "health",
+                    "_api_key": "YOUR_API_KEY"
+                  }
+                },
+                "upsertRecord": {
+                  "summary": "Insert or update a wine record",
+                  "value": {
+                    "action": "upsertRecord",
+                    "_api_key": "YOUR_API_KEY",
+                    "date": "2026-03-08",
+                    "opened_on": "2026-03-08",
+                    "open_day": 1,
+                    "type": "Red",
+                    "name": "Test Cabernet",
+                    "vintage": 2021,
+                    "producer": "Test Winery",
+                    "country": "France",
+                    "region": "Bordeaux",
+                    "sub_region": "Medoc",
+                    "location": "Home",
+                    "grape_varieties": [
+                      {
+                        "name": "Cabernet Sauvignon",
+                        "percent": 100
+                      }
+                    ],
+                    "aroma": [
+                      "blackcurrant",
+                      "cedar"
+                    ],
+                    "paired_dishes": {
+                      "main": [
+                        "steak"
+                      ],
+                      "appetizer": [],
+                      "side": [],
+                      "dessert": [],
+                      "drink_other": []
+                    },
+                    "ratings": {
+                      "color": 4,
+                      "aroma": 4,
+                      "tannin": 4,
+                      "acidity": 3,
+                      "fruit": 4
+                    },
+                    "overall_score_5": 4.2,
+                    "overall_grade": "A",
+                    "scene": {
+                      "people": "solo",
+                      "style": "dinner",
+                      "mood": "calm"
+                    },
+                    "repurchase_intent": "ぜひ",
+                    "tags": [
+                      "test"
+                    ],
+                    "overall_comment": "API test record",
+                    "meta": {
+                      "inferred_fields": [],
+                      "notes": "sample request"
+                    },
+                    "summary_jp": "接続確認用のテスト記録です。",
+                    "rebuild_profile": true
+                  }
+                },
+                "getSession": {
+                  "summary": "Fetch session and member records",
+                  "value": {
+                    "action": "getSession",
+                    "_api_key": "YOUR_API_KEY",
+                    "session_key": "2026-03-08_test-cabernet_home"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "API response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ApiRequest": {
+        "type": "object",
+        "properties": {
+          "_api_key": {
+            "type": "string",
+            "description": "Shared secret from Apps Script Script Properties."
+          },
+          "action": {
+            "type": "string",
+            "enum": [
+              "health",
+              "upsertRecord",
+              "getRecord",
+              "getSession",
+              "findSession",
+              "listRecentRecords",
+              "rebuildSession",
+              "rebuildUserProfile"
+            ]
+          },
+          "record_id": {
+            "type": "string"
+          },
+          "session_key": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "opened_on": {
+            "type": "string",
+            "description": "YYYY-MM-DD"
+          },
+          "location": {
+            "type": "string"
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "rebuild_profile": {
+            "type": "boolean"
+          },
+          "date": {
+            "type": "string",
+            "description": "YYYY-MM-DD"
+          },
+          "open_day": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "Red",
+              "White",
+              "Rose",
+              "Sparkling",
+              "Orange",
+              "Cider",
+              "Sake",
+              "Other"
+            ]
+          },
+          "vintage": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "producer": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "region": {
+            "type": "string"
+          },
+          "sub_region": {
+            "type": "string"
+          },
+          "grape_varieties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GrapeVariety"
+            }
+          },
+          "aroma": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "paired_dishes": {
+            "$ref": "#/components/schemas/PairedDishes"
+          },
+          "ratings": {
+            "$ref": "#/components/schemas/Ratings"
+          },
+          "overall_score_5": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "overall_grade": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "scene": {
+            "$ref": "#/components/schemas/Scene"
+          },
+          "repurchase_intent": {
+            "type": "string"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "overall_comment": {
+            "type": "string"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          },
+          "summary_jp": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "_api_key",
+          "action"
+        ],
+        "additionalProperties": true
+      },
+      "ApiResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string"
+          },
+          "action": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "code": {
+            "type": "integer"
+          },
+          "record": {
+            "type": "object",
+            "properties": {},
+            "additionalProperties": true
+          },
+          "session": {
+            "type": "object",
+            "properties": {},
+            "additionalProperties": true
+          },
+          "records": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {},
+              "additionalProperties": true
+            }
+          },
+          "sessions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {},
+              "additionalProperties": true
+            }
+          },
+          "profile": {
+            "type": "object",
+            "properties": {},
+            "additionalProperties": true
+          },
+          "count": {
+            "type": "integer"
+          },
+          "mode": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          },
+          "spreadsheet_id": {
+            "type": "string"
+          },
+          "sheet_status": {
+            "type": "object",
+            "properties": {
+              "WineLog": {
+                "type": "boolean"
+              },
+              "WineSession": {
+                "type": "boolean"
+              },
+              "UserProfile": {
+                "type": "boolean"
+              },
+              "configured": {
+                "type": "boolean"
+              },
+              "message": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": true
+          }
+        },
+        "required": [
+          "status"
+        ],
+        "additionalProperties": true
+      },
+      "GrapeVariety": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "percent": {
+            "type": [
+              "number",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "additionalProperties": true
+      },
+      "PairedDishes": {
+        "type": "object",
+        "properties": {
+          "main": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "appetizer": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "side": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "dessert": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "drink_other": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "Ratings": {
+        "type": "object",
+        "properties": {
+          "color": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "aroma": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "tannin": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "acidity": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "fruit": {
+            "type": [
+              "number",
+              "null"
+            ]
+          }
+        },
+        "additionalProperties": false
+      },
+      "Scene": {
+        "type": "object",
+        "properties": {
+          "people": {
+            "type": "string"
+          },
+          "style": {
+            "type": "string"
+          },
+          "mood": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Meta": {
+        "type": "object",
+        "properties": {
+          "inferred_fields": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "notes": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}

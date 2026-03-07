@@ -429,6 +429,12 @@ curl -L -X POST "https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec" \
 - Authentication: `None`
 - `POST` の body に `_api_key` を含める
 - `action` は `upsertRecord` など実装済み action 名に固定する
+- schema テンプレートは [`openapi/gpts-action.schema.json`](/Users/zero/WorkSpace/Wine-companion-ai/openapi/gpts-action.schema.json) を使う
+
+GPTs に貼る前に次の 2 箇所を置換してください。
+
+- `YOUR_DEPLOYMENT_ID`
+- `YOUR_API_KEY`
 
 推奨 instruction 例:
 
