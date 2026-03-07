@@ -444,6 +444,75 @@ GPTs に貼る前に次の 2 箇所を置換してください。
 `upsertRecord` では action に加えて、date, opened_on, open_day, type, name を必ず含めること。
 ```
 
+## Legacy Chat Migration
+
+過去の ChatGPT 会話から作った legacy JSON 配列を、現行 API 用に正規化するスクリプトを用意しています。
+
+- スクリプト: [`scripts/import-legacy-records.mjs`](/Users/zero/WorkSpace/Wine-companion-ai/scripts/import-legacy-records.mjs)
+- 実行コマンド: `npm run migrate:legacy -- --input <file>`
+
+### What The Migration Script Does
+
+- `action: "upsert"` を `action: "upsertRecord"` に変換する
+- 空の `record_id` は `null` のまま通し、API 側採番に任せる
+- `date` と `opened_on` の片方だけがある場合は補完する
+- 空の品種名、空文字 aroma、空文字 tags などを除去する
+- `ready` と `needs_review` に振り分ける
+- 必要なら `--push` で GAS API に順次投入する
+
+### Typical Workflow
+
+1. legacy JSON 配列をファイルに保存する
+2. 正規化だけ行う
+
+```bash
+npm run migrate:legacy -- --input ./path/to/legacy-records.json
+```
+
+3. 生成された `migration-output/` を確認する
+   - `normalized-records.json`
+   - `ready-records.json`
+   - `needs-review.json`
+   - `report.json`
+4. `needs-review.json` の不完全データを補正する
+5. 問題なければ `--push` で ready データを投入する
+
+```bash
+npm run migrate:legacy -- \
+  --input ./path/to/legacy-records.json \
+  --push \
+  --endpoint "https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec" \
+  --api-key "YOUR_API_KEY"
+```
+
+### Output Files
+
+- `normalized-records.json`
+  - 正規化後の全件
+- `ready-records.json`
+  - そのまま API に入れられる record 配列
+- `needs-review.json`
+  - 必須項目不足や型不整合があり、手直しが必要な record 一覧
+- `report.json`
+  - 件数と issue 集計
+- `import-results.json`
+  - `--push` 実行時のみ生成
+
+### What Becomes Needs Review
+
+- `date` と `opened_on` が両方空
+- `name` が空
+- `open_day` が 1 以上の整数でない
+- `type` が許容値に含まれない
+- `vintage` や評価値が数値として解釈できない
+
+### Notes
+
+- `unknown_...` な `session_key` はそのまま保持しますが、warning を出します
+- 片方だけ存在する `date` / `opened_on` は自動補完します
+- `grape_varieties` の空要素は削除します
+- まず `prepare_only` で生成物を確認してから `--push` する運用を推奨します
+
 ## Validation Rules
 
 - `date`, `opened_on`, `type`, `name` は必須

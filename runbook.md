@@ -86,6 +86,61 @@ curl -L -G "https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec" \
 - 同一 `session_key` の複数保存で `WineSession` が更新されるか
 - `rebuildUserProfile` 後に `source_record_count` が増えるか
 
+## Historical Migration Procedure
+
+過去チャットを JSON 化したデータを本番投入するときは、必ず 2 段階で実施します。
+
+### Step 1: Normalize Only
+
+```bash
+npm run migrate:legacy -- --input ./path/to/legacy-records.json
+```
+
+確認対象:
+
+- `migration-output/report.json`
+- `migration-output/ready-records.json`
+- `migration-output/needs-review.json`
+
+### Step 2: Review Blocked Records
+
+主な修正ポイント:
+
+- 欠損 `date`
+- 欠損 `opened_on`
+- 誤った `type`
+- 不正な `open_day`
+- 空の `name`
+
+### Step 3: Push Ready Records
+
+```bash
+npm run migrate:legacy -- \
+  --input ./path/to/legacy-records.json \
+  --push \
+  --endpoint "https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec" \
+  --api-key "YOUR_API_KEY"
+```
+
+必要なら件数を絞る:
+
+```bash
+npm run migrate:legacy -- \
+  --input ./path/to/legacy-records.json \
+  --push \
+  --endpoint "https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec" \
+  --api-key "YOUR_API_KEY" \
+  --limit 20
+```
+
+### Step 4: Verify
+
+- `health`
+- `listRecentRecords`
+- `getRecord`
+- `getSession`
+- Spreadsheet 上の `WineLog` / `WineSession` / `UserProfile`
+
 ## Operational Checks
 
 ### Check 1: API health

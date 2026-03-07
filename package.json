@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "build": "node scripts/build.mjs",
-    "check": "npm run build && node --check dist/Code.js"
+    "check": "npm run build && node --check dist/Code.js",
+    "migrate:legacy": "node scripts/import-legacy-records.mjs"
   },
   "devDependencies": {
     "typescript": "^5.8.2"
