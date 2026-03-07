@@ -1,0 +1,10 @@
+src/**
+scripts/**
+node_modules/**
+README.md
+tsconfig.json
+package.json
+Wine-companion-ai.gs
+.git/**
+.gitignore
+.DS_Store
