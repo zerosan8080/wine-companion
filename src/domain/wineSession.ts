@@ -8,7 +8,7 @@ var WineSessionDomain = {
     return {
       session_key: row.session_key,
       wine_name: row.wine_name || "",
-      opened_on: row.opened_on || "",
+      opened_on: DateInfra.toDateOnlyString(row.opened_on),
       location: row.location || "",
       type: row.type || "",
       producer: row.producer || "",
@@ -26,8 +26,8 @@ var WineSessionDomain = {
       best_pairing: row.best_pairing || "",
       final_impression: row.final_impression || "",
       repurchase_intent: row.repurchase_intent || "",
-      created_at: row.created_at || "",
-      updated_at: row.updated_at || "",
+      created_at: DateInfra.toComparableString(row.created_at),
+      updated_at: DateInfra.toComparableString(row.updated_at),
       __rowNumber: row.__rowNumber,
     };
   },

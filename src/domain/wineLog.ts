@@ -182,8 +182,8 @@ var WineLogDomain = {
     return {
       record_id: row.record_id,
       session_key: row.session_key,
-      date: row.date,
-      opened_on: row.opened_on,
+      date: DateInfra.toDateOnlyString(row.date),
+      opened_on: DateInfra.toDateOnlyString(row.opened_on),
       open_day: WineLogDomain.toIntegerOrNull(row.open_day),
       type: row.type,
       name: row.name,
@@ -225,8 +225,8 @@ var WineLogDomain = {
       },
       summary_jp: row.summary_jp || "",
       raw_json: row.raw_json || "",
-      created_at: row.created_at || "",
-      updated_at: row.updated_at || "",
+      created_at: DateInfra.toComparableString(row.created_at),
+      updated_at: DateInfra.toComparableString(row.updated_at),
       deleted_flag: WineLogDomain.toBoolean(row.deleted_flag),
       __rowNumber: row.__rowNumber,
     };

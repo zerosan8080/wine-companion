@@ -171,13 +171,37 @@ var DateInfra = {
     return Utilities.formatDate(new Date(), APP_CONFIG.timezone, "yyyy-MM-dd'T'HH:mm:ssXXX");
   },
 
+  toDateOnlyString: function (value) {
+    if (value instanceof Date && !Number.isNaN(value.getTime())) {
+      return Utilities.formatDate(value, APP_CONFIG.timezone, "yyyy-MM-dd");
+    }
+
+    if (typeof value === "string" && /^\d{4}-\d{2}-\d{2}$/.test(value)) {
+      return value;
+    }
+
+    if (typeof value === "string" && /^\d{4}-\d{2}-\d{2}T/.test(value)) {
+      return value.slice(0, 10);
+    }
+
+    return value ? String(value) : "";
+  },
+
+  toComparableString: function (value) {
+    if (value instanceof Date && !Number.isNaN(value.getTime())) {
+      return Utilities.formatDate(value, APP_CONFIG.timezone, "yyyy-MM-dd'T'HH:mm:ssXXX");
+    }
+
+    return value ? String(value) : "";
+  },
+
   isDateString: function (value) {
     return typeof value === "string" && /^\d{4}-\d{2}-\d{2}$/.test(value);
   },
 
   compareIsoLike: function (left, right) {
-    var leftValue = left || "";
-    var rightValue = right || "";
+    var leftValue = DateInfra.toComparableString(left);
+    var rightValue = DateInfra.toComparableString(right);
 
     if (leftValue === rightValue) {
       return 0;
@@ -667,8 +691,8 @@ var WineLogDomain = {
     return {
       record_id: row.record_id,
       session_key: row.session_key,
-      date: row.date,
-      opened_on: row.opened_on,
+      date: DateInfra.toDateOnlyString(row.date),
+      opened_on: DateInfra.toDateOnlyString(row.opened_on),
       open_day: WineLogDomain.toIntegerOrNull(row.open_day),
       type: row.type,
       name: row.name,
@@ -710,8 +734,8 @@ var WineLogDomain = {
       },
       summary_jp: row.summary_jp || "",
       raw_json: row.raw_json || "",
-      created_at: row.created_at || "",
-      updated_at: row.updated_at || "",
+      created_at: DateInfra.toComparableString(row.created_at),
+      updated_at: DateInfra.toComparableString(row.updated_at),
       deleted_flag: WineLogDomain.toBoolean(row.deleted_flag),
       __rowNumber: row.__rowNumber,
     };
@@ -816,7 +840,7 @@ var WineSessionDomain = {
     return {
       session_key: row.session_key,
       wine_name: row.wine_name || "",
-      opened_on: row.opened_on || "",
+      opened_on: DateInfra.toDateOnlyString(row.opened_on),
       location: row.location || "",
       type: row.type || "",
       producer: row.producer || "",
@@ -834,8 +858,8 @@ var WineSessionDomain = {
       best_pairing: row.best_pairing || "",
       final_impression: row.final_impression || "",
       repurchase_intent: row.repurchase_intent || "",
-      created_at: row.created_at || "",
-      updated_at: row.updated_at || "",
+      created_at: DateInfra.toComparableString(row.created_at),
+      updated_at: DateInfra.toComparableString(row.updated_at),
       __rowNumber: row.__rowNumber,
     };
   },

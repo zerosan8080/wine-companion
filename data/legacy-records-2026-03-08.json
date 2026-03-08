@@ -1,0 +1,926 @@
+[
+  {
+    "action": "upsert",
+    "record_id": null,
+    "session_key": "2025-12-24_clos-du-val-red-blend_東京-musashino",
+    "date": "2025-12-24",
+    "opened_on": "2025-12-24",
+    "open_day": 1,
+    "type": "Red",
+    "name": "Clos du Val Red Blend",
+    "vintage": 2021,
+    "producer": "Clos du Val Wine Co., Ltd.",
+    "country": "USA",
+    "region": "California",
+    "sub_region": "Napa Valley",
+    "location": "東京都武蔵野市桜堤",
+    "grape_varieties": [
+      {
+        "name": "Cabernet Sauvignon",
+        "percent": null
+      },
+      {
+        "name": "Merlot",
+        "percent": null
+      },
+      {
+        "name": "Petit Verdot",
+        "percent": null
+      }
+    ],
+    "aroma": [
+      "ブラックチェリー",
+      "カシス",
+      "バニラ（控えめな樽香）"
+    ],
+    "paired_dishes": {
+      "main": [
+        "ローストビーフ（ミディアムレア、ソース添え）",
+        "骨付きチキンのロースト"
+      ],
+      "appetizer": [
+        "生ハム",
+        "チーズ盛り合わせ（白カビ／青カビ／ハード）",
+        "グリッシーニ"
+      ],
+      "side": [
+        "グリーンサラダ",
+        "コールスロー",
+        "ピクルス／浅漬け"
+      ],
+      "dessert": [],
+      "drink_other": []
+    },
+    "ratings": {
+      "color": 4,
+      "aroma": 4,
+      "tannin": 2,
+      "acidity": 2,
+      "fruit": 4
+    },
+    "overall_score_5": 4,
+    "overall_grade": "B",
+    "scene": {
+      "people": "家族",
+      "style": "自宅ディナー",
+      "mood": "落ち着いた・満たされる"
+    },
+    "repurchase_intent": "◎",
+    "tags": [
+      "食事と楽しむ",
+      "バランス型",
+      "安心して開けられる",
+      "年末"
+    ],
+    "overall_comment": "肉料理中心の家庭ディナーと非常に相性が良い。主張しすぎず、料理を引き立てるナパの優等生。また同じような食卓で開けたい一本。",
+    "meta": {
+      "inferred_fields": [
+        "grape_varieties",
+        "aroma"
+      ],
+      "notes": ""
+    },
+    "summary_jp": "ナパらしい果実味を持ちながら重すぎず端正で、肉料理中心の家庭ディナーを引き立てる一本。"
+  },
+  {
+    "action": "upsert",
+    "record_id": null,
+    "session_key": "2025-12-25_casale-vecchio-montepulciano-dabruzzo",
+    "date": "2025-12-25",
+    "opened_on": "2025-12-25",
+    "open_day": 1,
+    "type": "Red",
+    "name": "Casale Vecchio Montepulciano d'Abruzzo",
+    "vintage": 2022,
+    "producer": "Fantini Group Vini s.r.l.",
+    "country": "Italy",
+    "region": "Abruzzo",
+    "sub_region": "Montepulciano d'Abruzzo DOC",
+    "location": "",
+    "grape_varieties": [
+      {
+        "name": "Montepulciano",
+        "percent": 100
+      }
+    ],
+    "aroma": [
+      "ブラックチェリー",
+      "プラム",
+      "カカオ",
+      "スパイス"
+    ],
+    "paired_dishes": {
+      "main": [
+        "ラムチョップのグリル",
+        "骨付きチキンのロースト",
+        "ローストビーフ（ミディアムレア、ソース添え）"
+      ],
+      "appetizer": [
+        "生ハム",
+        "チーズ盛り合わせ（白カビ／青カビ）",
+        "オリーブ",
+        "クリーム系ディップ",
+        "グリッシーニ"
+      ],
+      "side": [
+        "キャベツの浅漬け",
+        "野菜マリネ",
+        "ポテト／ライス系サラダ",
+        "グリーンサラダ"
+      ],
+      "dessert": [],
+      "drink_other": []
+    },
+    "ratings": {
+      "color": 4,
+      "aroma": 4,
+      "tannin": 2,
+      "acidity": 2,
+      "fruit": 3
+    },
+    "overall_score_5": 4,
+    "overall_grade": "B",
+    "scene": {
+      "people": "家族",
+      "style": "自宅ディナー",
+      "mood": "しっかり食べる・満足感"
+    },
+    "repurchase_intent": "◯",
+    "tags": [
+      "イタリア赤",
+      "フルボディ",
+      "肉料理",
+      "自宅ディナー",
+      "家族"
+    ],
+    "overall_comment": "果実味は豊かだが出過ぎず、渋みと酸は穏やか。ラムやロースト系肉料理と特に相性が良く、食卓の主役をしっかり支える一本。",
+    "meta": {
+      "inferred_fields": [],
+      "notes": ""
+    },
+    "summary_jp": "果実感と丸みのあるモンテプルチアーノ。ラムやロースト肉と好相性で、家庭ディナーをしっかり支える一本。"
+  },
+  {
+    "action": "upsert",
+    "record_id": null,
+    "session_key": "2025-12-25_casale-vecchio-montepulciano-dabruzzo",
+    "date": "2025-12-26",
+    "opened_on": "2025-12-25",
+    "open_day": 2,
+    "type": "Red",
+    "name": "Casale Vecchio Montepulciano d'Abruzzo",
+    "vintage": 2022,
+    "producer": "Fantini Group Vini s.r.l.",
+    "country": "Italy",
+    "region": "Abruzzo",
+    "sub_region": "Montepulciano d'Abruzzo DOC",
+    "location": "",
+    "grape_varieties": [
+      {
+        "name": "Montepulciano",
+        "percent": 100
+      }
+    ],
+    "aroma": [
+      "ブラックチェリー",
+      "プラム",
+      "カカオ",
+      "スパイス"
+    ],
+    "paired_dishes": {
+      "main": [
+        "ローストビーフ（ミディアムレア、ソース添え）"
+      ],
+      "appetizer": [],
+      "side": [],
+      "dessert": [],
+      "drink_other": []
+    },
+    "ratings": {
+      "color": 4,
+      "aroma": 4,
+      "tannin": 3,
+      "acidity": 2,
+      "fruit": 2
+    },
+    "overall_score_5": 3.5,
+    "overall_grade": "B",
+    "scene": {
+      "people": "家族",
+      "style": "自宅ディナー",
+      "mood": "比較しながら味わう"
+    },
+    "repurchase_intent": "◯",
+    "tags": [
+      "2日目",
+      "タンニン強め",
+      "果実控えめ",
+      "ローストビーフ",
+      "自宅"
+    ],
+    "overall_comment": "2日目は渋みが前に出て、果実のふくらみが引いた印象。全体としては初日より少し評価が下がる。",
+    "meta": {
+      "inferred_fields": [],
+      "notes": "2日目で飲み切り。"
+    },
+    "summary_jp": "2日目はタンニンが立ち、果実が引いてやや落ちる印象。"
+  },
+  {
+    "action": "upsert",
+    "record_id": null,
+    "session_key": "unknown_mellow-2024_unknown-location",
+    "date": "",
+    "opened_on": "",
+    "open_day": 1,
+    "type": "White",
+    "name": "mellow",
+    "vintage": 2024,
+    "producer": "GRAPE SHIP株式会社",
+    "country": "Japan",
+    "region": "岡山県",
+    "sub_region": "倉敷市",
+    "location": "",
+    "grape_varieties": [
+      {
+        "name": "岡山県倉敷市産ぶどう",
+        "percent": null
+      }
+    ],
+    "aroma": [
+      "青りんご",
+      "白ぶどう",
+      "柑橘の皮",
+      "ほのかな酵母感"
+    ],
+    "paired_dishes": {
+      "main": [],
+      "appetizer": [],
+      "side": [],
+      "dessert": [],
+      "drink_other": []
+    },
+    "ratings": {
+      "color": null,
+      "aroma": null,
+      "tannin": 0,
+      "acidity": null,
+      "fruit": null
+    },
+    "overall_score_5": null,
+    "overall_grade": null,
+    "scene": {
+      "people": "",
+      "style": "自宅",
+      "mood": "リラックス"
+    },
+    "repurchase_intent": "未定",
+    "tags": [
+      "日本ワイン",
+      "低アルコール",
+      "ナチュラル",
+      "要冷蔵",
+      "日常酒"
+    ],
+    "overall_comment": "",
+    "meta": {
+      "inferred_fields": [
+        "type",
+        "aroma",
+        "date",
+        "opened_on"
+      ],
+      "notes": ""
+    },
+    "summary_jp": "低アルコールでやわらかく、日常に寄り添う日本ワイン。構えず飲めるmellowな一本。"
+  },
+  {
+    "action": "upsert",
+    "record_id": null,
+    "session_key": "unknown_cuvee-de-la-montagnere_unknown-location",
+    "date": "",
+    "opened_on": "",
+    "open_day": 1,
+    "type": "White",
+    "name": "Cuvée de la Montagnère",
+    "vintage": 2023,
+    "producer": "Mas d’Intras",
+    "country": "France",
+    "region": "Ardèche",
+    "sub_region": "IGP Ardèche",
+    "location": "",
+    "grape_varieties": [
+      {
+        "name": "Viognier",
+        "percent": 30
+      },
+      {
+        "name": "Grenache Blanc",
+        "percent": 30
+      },
+      {
+        "name": "Clairette",
+        "percent": 15
+      },
+      {
+        "name": "Floreal",
+        "percent": 15
+      },
+      {
+        "name": "Vermentino",
+        "percent": 10
+      }
+    ],
+    "aroma": [
+      "白い花",
+      "柑橘",
+      "白桃",
+      "ガリーグ"
+    ],
+    "paired_dishes": {
+      "main": [],
+      "appetizer": [],
+      "side": [],
+      "dessert": [],
+      "drink_other": []
+    },
+    "ratings": {
+      "color": null,
+      "aroma": null,
+      "tannin": 0,
+      "acidity": null,
+      "fruit": null
+    },
+    "overall_score_5": null,
+    "overall_grade": null,
+    "scene": {
+      "people": "",
+      "style": "自宅",
+      "mood": "穏やか・食事向き"
+    },
+    "repurchase_intent": "未定",
+    "tags": [
+      "南仏白",
+      "ビオディナミ",
+      "食中酒",
+      "フローラル",
+      "IGP"
+    ],
+    "overall_comment": "",
+    "meta": {
+      "inferred_fields": [
+        "date",
+        "opened_on"
+      ],
+      "notes": ""
+    },
+    "summary_jp": "南仏らしい花と柑橘のニュアンスを持つ、ビオディナミの食事向き白ワイン。"
+  },
+  {
+    "action": "upsert",
+    "record_id": null,
+    "session_key": "unknown_cava-vinart-brut-nature-vintage_unknown-location",
+    "date": "",
+    "opened_on": "",
+    "open_day": 1,
+    "type": "Sparkling",
+    "name": "CAVA VINART Brut Nature Vintage",
+    "vintage": 2021,
+    "producer": "",
+    "country": "Spain",
+    "region": "Catalonia",
+    "sub_region": "DO Cava",
+    "location": "",
+    "grape_varieties": [
+      {
+        "name": "",
+        "percent": null
+      }
+    ],
+    "aroma": [],
+    "paired_dishes": {
+      "main": [],
+      "appetizer": [
+        "生ハム",
+        "オリーブ",
+        "塩味の効いたナッツ"
+      ],
+      "side": [],
+      "dessert": [],
+      "drink_other": []
+    },
+    "ratings": {
+      "color": null,
+      "aroma": null,
+      "tannin": 0,
+      "acidity": null,
+      "fruit": null
+    },
+    "overall_score_5": null,
+    "overall_grade": null,
+    "scene": {
+      "people": "",
+      "style": "",
+      "mood": ""
+    },
+    "repurchase_intent": "未定",
+    "tags": [
+      "CAVA",
+      "Brut Nature",
+      "完全辛口",
+      "スパークリング"
+    ],
+    "overall_comment": "",
+    "meta": {
+      "inferred_fields": [
+        "grape_varieties",
+        "date",
+        "opened_on"
+      ],
+      "notes": ""
+    },
+    "summary_jp": "糖分ゼロの完全辛口CAVA。泡と塩味・油脂の相性が良く、前菜から中盤までを整える一本。"
+  },
+  {
+    "action": "upsert",
+    "record_id": null,
+    "session_key": "unknown_capricorn-riesling-lion_unknown-location",
+    "date": "",
+    "opened_on": "",
+    "open_day": 1,
+    "type": "White",
+    "name": "Capricorn",
+    "vintage": null,
+    "producer": "株式会社日本酒にしよう / 神田葡萄園",
+    "country": "Japan",
+    "region": "岩手県",
+    "sub_region": "陸前高田",
+    "location": "",
+    "grape_varieties": [
+      {
+        "name": "リースリング・リオン",
+        "percent": null
+      }
+    ],
+    "aroma": [
+      "青りんご",
+      "柑橘",
+      "白い花"
+    ],
+    "paired_dishes": {
+      "main": [
+        "鯛",
+        "天然ブリ",
+        "養殖ブリ",
+        "アジ",
+        "エビ",
+        "イカ",
+        "タコ",
+        "貝",
+        "サーモン",
+        "カニ"
+      ],
+      "appetizer": [
+        "ナマコ（梅酢・酢醤油）"
+      ],
+      "side": [],
+      "dessert": [],
+      "drink_other": []
+    },
+    "ratings": {
+      "color": null,
+      "aroma": null,
+      "tannin": 0,
+      "acidity": null,
+      "fruit": null
+    },
+    "overall_score_5": null,
+    "overall_grade": null,
+    "scene": {
+      "people": "",
+      "style": "刺身と酢飯",
+      "mood": ""
+    },
+    "repurchase_intent": "未定",
+    "tags": [
+      "日本ワイン",
+      "三陸",
+      "魚介",
+      "白ワイン"
+    ],
+    "overall_comment": "ナマコの梅酢ともマッチし、刺身の透明感を磨く印象。特にカニ、貝、イカ、鯛との相性が良い。",
+    "meta": {
+      "inferred_fields": [
+        "vintage",
+        "date",
+        "opened_on",
+        "location"
+      ],
+      "notes": ""
+    },
+    "summary_jp": "三陸の魚介と酢飯に寄り添い、海の素材の透明感を引き出す白ワイン。"
+  },
+  {
+    "action": "upsert",
+    "record_id": null,
+    "session_key": "unknown_angeaile-noir_unknown-location",
+    "date": "",
+    "opened_on": "",
+    "open_day": 1,
+    "type": "Sparkling",
+    "name": "Angeaile Noir",
+    "vintage": null,
+    "producer": "",
+    "country": "France",
+    "region": "",
+    "sub_region": "",
+    "location": "",
+    "grape_varieties": [
+      {
+        "name": "",
+        "percent": null
+      }
+    ],
+    "aroma": [],
+    "paired_dishes": {
+      "main": [
+        "刺身"
+      ],
+      "appetizer": [],
+      "side": [],
+      "dessert": [],
+      "drink_other": []
+    },
+    "ratings": {
+      "color": null,
+      "aroma": null,
+      "tannin": 0,
+      "acidity": null,
+      "fruit": null
+    },
+    "overall_score_5": null,
+    "overall_grade": null,
+    "scene": {
+      "people": "",
+      "style": "",
+      "mood": ""
+    },
+    "repurchase_intent": "未定",
+    "tags": [
+      "フレーバード",
+      "スパークリング",
+      "甘やか系"
+    ],
+    "overall_comment": "乾杯や雰囲気作りには向くが、刺身や寿司の主役にはなりにくい。",
+    "meta": {
+      "inferred_fields": [
+        "vintage",
+        "region",
+        "sub_region",
+        "grape_varieties",
+        "date",
+        "opened_on",
+        "location"
+      ],
+      "notes": ""
+    },
+    "summary_jp": "ワインベースのフレーバード・スパークリング。雰囲気を楽しむタイプで、繊細な刺身には主役になりにくい。"
+  },
+  {
+    "action": "upsert",
+    "record_id": null,
+    "session_key": "unknown_suntory-from-farm-koshu-nihon-no-shiro_unknown-location",
+    "date": "",
+    "opened_on": "",
+    "open_day": 1,
+    "type": "White",
+    "name": "Suntory FROM FARM 甲州 日本の白",
+    "vintage": 2021,
+    "producer": "サントリー",
+    "country": "Japan",
+    "region": "山梨県",
+    "sub_region": "",
+    "location": "",
+    "grape_varieties": [
+      {
+        "name": "甲州",
+        "percent": null
+      }
+    ],
+    "aroma": [],
+    "paired_dishes": {
+      "main": [
+        "白身の刺身",
+        "貝",
+        "イカ",
+        "アジ"
+      ],
+      "appetizer": [],
+      "side": [],
+      "dessert": [],
+      "drink_other": []
+    },
+    "ratings": {
+      "color": null,
+      "aroma": null,
+      "tannin": 0,
+      "acidity": null,
+      "fruit": null
+    },
+    "overall_score_5": null,
+    "overall_grade": null,
+    "scene": {
+      "people": "一番仲いい友達たち",
+      "style": "外食・刺身",
+      "mood": ""
+    },
+    "repurchase_intent": "未定",
+    "tags": [
+      "日本ワイン",
+      "甲州",
+      "和食",
+      "白ワイン"
+    ],
+    "overall_comment": "和食の輪郭を整える白。友人たちとの刺身の席で、白身や貝、イカに寄り添う一本。",
+    "meta": {
+      "inferred_fields": [
+        "aroma",
+        "date",
+        "opened_on",
+        "location",
+        "sub_region"
+      ],
+      "notes": ""
+    },
+    "summary_jp": "甲州らしい穏やかな酸と旨味寄りの白で、刺身と会話を静かに支える一本。"
+  },
+  {
+    "action": "upsert",
+    "record_id": null,
+    "session_key": "unknown_tiwari-prestige-cuvee-rose-brut-vintage_unknown-location",
+    "date": "",
+    "opened_on": "",
+    "open_day": 1,
+    "type": "Sparkling",
+    "name": "TIWARI Prestige Cuvée Rosé Brut Vintage",
+    "vintage": 2020,
+    "producer": "Tiwari Wine and Spirits Kft.",
+    "country": "Hungary",
+    "region": "",
+    "sub_region": "",
+    "location": "",
+    "grape_varieties": [
+      {
+        "name": "",
+        "percent": null
+      }
+    ],
+    "aroma": [],
+    "paired_dishes": {
+      "main": [
+        "カツオの藁焼き",
+        "サーモン"
+      ],
+      "appetizer": [],
+      "side": [
+        "サラダ",
+        "椎茸バター醤油"
+      ],
+      "dessert": [],
+      "drink_other": []
+    },
+    "ratings": {
+      "color": null,
+      "aroma": null,
+      "tannin": null,
+      "acidity": null,
+      "fruit": null
+    },
+    "overall_score_5": null,
+    "overall_grade": null,
+    "scene": {
+      "people": "",
+      "style": "",
+      "mood": ""
+    },
+    "repurchase_intent": "未定",
+    "tags": [
+      "ロゼ泡",
+      "ハンガリー",
+      "炙り",
+      "サーモン"
+    ],
+    "overall_comment": "カツオの藁焼きでは炙りの香ばしさが主役となり、ワインは苦味を洗ってキレを増す脇役として機能した。サーモンやサラダとも好相性。",
+    "meta": {
+      "inferred_fields": [
+        "region",
+        "sub_region",
+        "grape_varieties",
+        "date",
+        "opened_on",
+        "location"
+      ],
+      "notes": ""
+    },
+    "summary_jp": "ロゼの泡が藁焼きカツオの苦味を洗い、後味のキレを増す。炙りの香ばしさが主役の夜。"
+  },
+  {
+    "action": "upsert",
+    "record_id": null,
+    "session_key": "unknown_jammertal-borbirtok-villany-merlot_bbq",
+    "date": "",
+    "opened_on": "",
+    "open_day": 1,
+    "type": "Red",
+    "name": "Jammertal Borbirtok Villány Merlot",
+    "vintage": 2019,
+    "producer": "Wunderlich Borászati Kft.",
+    "country": "Hungary",
+    "region": "Villány",
+    "sub_region": "PDO Villány",
+    "location": "BBQ",
+    "grape_varieties": [
+      {
+        "name": "Merlot",
+        "percent": null
+      }
+    ],
+    "aroma": [],
+    "paired_dishes": {
+      "main": [
+        "牛ステーキ",
+        "スペアリブ",
+        "鶏手羽",
+        "BBQ肉"
+      ],
+      "appetizer": [
+        "ナチュラルチーズ"
+      ],
+      "side": [],
+      "dessert": [],
+      "drink_other": []
+    },
+    "ratings": {
+      "color": null,
+      "aroma": null,
+      "tannin": null,
+      "acidity": null,
+      "fruit": null
+    },
+    "overall_score_5": null,
+    "overall_grade": null,
+    "scene": {
+      "people": "",
+      "style": "炭火BBQ",
+      "mood": "最高の1日"
+    },
+    "repurchase_intent": "未定",
+    "tags": [
+      "BBQ",
+      "メルロー",
+      "ハンガリー",
+      "赤ワイン"
+    ],
+    "overall_comment": "自家製タレ多めのBBQで、渋みが丸くなり口の中がリセットされる感覚。締めのナチュラルチーズでタンニンはほぼ消え、果実味だけが残った。",
+    "meta": {
+      "inferred_fields": [
+        "aroma",
+        "date",
+        "opened_on"
+      ],
+      "notes": ""
+    },
+    "summary_jp": "炭火とタレ、肉の脂を受け止め、最後はチーズで角が消える。ワインが料理に育てられた日。"
+  },
+  {
+    "action": "upsert",
+    "record_id": null,
+    "session_key": "unknown_estate-goichi-pinot-noir_unknown-location",
+    "date": "",
+    "opened_on": "",
+    "open_day": 1,
+    "type": "Red",
+    "name": "エステートゴイチ ピノ・ノワール",
+    "vintage": 2024,
+    "producer": "林ワイナリー",
+    "country": "Japan",
+    "region": "長野県",
+    "sub_region": "塩尻市",
+    "location": "長野",
+    "grape_varieties": [
+      {
+        "name": "ピノ・ノワール",
+        "percent": null
+      }
+    ],
+    "aroma": [
+      "イチゴ",
+      "ラズベリー",
+      "チェリー"
+    ],
+    "paired_dishes": {
+      "main": [],
+      "appetizer": [
+        "ブラックペッパーゴーダ"
+      ],
+      "side": [],
+      "dessert": [],
+      "drink_other": []
+    },
+    "ratings": {
+      "color": null,
+      "aroma": null,
+      "tannin": null,
+      "acidity": null,
+      "fruit": null
+    },
+    "overall_score_5": null,
+    "overall_grade": null,
+    "scene": {
+      "people": "",
+      "style": "食後の締め",
+      "mood": ""
+    },
+    "repurchase_intent": "未定",
+    "tags": [
+      "長野",
+      "塩尻",
+      "ピノノワール",
+      "チーズ"
+    ],
+    "overall_comment": "果実味が主役で、ブラックペッパーゴーダがピノの赤い果実を押し上げる。長野の産地に触れる締めとして美しい構図。",
+    "meta": {
+      "inferred_fields": [
+        "date",
+        "opened_on"
+      ],
+      "notes": ""
+    },
+    "summary_jp": "若い塩尻ピノの果実味が主役。ブラックペッパーゴーダが立体感を与える、長野らしい締めの一杯。"
+  },
+  {
+    "action": "upsert",
+    "record_id": null,
+    "session_key": "2026-03-02_ringo-gakko-oaky_unknown-location",
+    "date": "2026-03-02",
+    "opened_on": "2026-03-02",
+    "open_day": 1,
+    "type": "Cider",
+    "name": "林檎学校醸造所 2023 Oaky 2組",
+    "vintage": 2023,
+    "producer": "林檎学校醸造所 / 北信五岳シードルリー株式会社",
+    "country": "Japan",
+    "region": "長野県",
+    "sub_region": "飯綱町",
+    "location": "",
+    "grape_varieties": [
+      {
+        "name": "シナノドルチェ",
+        "percent": null
+      },
+      {
+        "name": "紅玉",
+        "percent": null
+      }
+    ],
+    "aroma": [
+      "青りんご"
+    ],
+    "paired_dishes": {
+      "main": [
+        "トマト系パスタ"
+      ],
+      "appetizer": [],
+      "side": [],
+      "dessert": [],
+      "drink_other": []
+    },
+    "ratings": {
+      "color": null,
+      "aroma": null,
+      "tannin": 0,
+      "acidity": null,
+      "fruit": null
+    },
+    "overall_score_5": null,
+    "overall_grade": null,
+    "scene": {
+      "people": "",
+      "style": "ディナー",
+      "mood": "爽やか"
+    },
+    "repurchase_intent": "未定",
+    "tags": [
+      "長野",
+      "シードル",
+      "トマトパスタ"
+    ],
+    "overall_comment": "爽やかで喉越しがよく、青りんご系のシャープさが主役。トマトの酸や貝の旨味ときれいに重なった。",
+    "meta": {
+      "inferred_fields": [
+        "location"
+      ],
+      "notes": ""
+    },
+    "summary_jp": "青りんご系のシャープさが印象的で、トマト系パスタを軽やかに流す爽やかな長野シードル。"
+  }
+]
