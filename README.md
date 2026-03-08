@@ -485,6 +485,18 @@ npm run migrate:legacy -- \
   --api-key "YOUR_API_KEY"
 ```
 
+既存投入済みデータを更新したい場合は、前回の `import-results.json` を渡して `record_id` を再利用できます。
+
+```bash
+npm run migrate:legacy -- \
+  --input ./path/to/legacy-records.json \
+  --output-dir ./migration-output/reimport \
+  --existing-record-map ./migration-output/legacy-2026-03-08/import-results.json \
+  --push \
+  --endpoint "https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec" \
+  --api-key "YOUR_API_KEY"
+```
+
 ### Output Files
 
 - `normalized-records.json`

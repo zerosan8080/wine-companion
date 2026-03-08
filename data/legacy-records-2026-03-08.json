@@ -1,8 +1,5 @@
 [
   {
-    "action": "upsert",
-    "record_id": null,
-    "session_key": "2025-12-24_clos-du-val-red-blend_東京-musashino",
     "date": "2025-12-24",
     "opened_on": "2025-12-24",
     "open_day": 1,
@@ -15,18 +12,9 @@
     "sub_region": "Napa Valley",
     "location": "東京都武蔵野市桜堤",
     "grape_varieties": [
-      {
-        "name": "Cabernet Sauvignon",
-        "percent": null
-      },
-      {
-        "name": "Merlot",
-        "percent": null
-      },
-      {
-        "name": "Petit Verdot",
-        "percent": null
-      }
+      { "name": "Cabernet Sauvignon", "percent": null },
+      { "name": "Merlot", "percent": null },
+      { "name": "Petit Verdot", "percent": null }
     ],
     "aroma": [
       "ブラックチェリー",
@@ -83,9 +71,6 @@
     "summary_jp": "ナパらしい果実味を持ちながら重すぎず端正で、肉料理中心の家庭ディナーを引き立てる一本。"
   },
   {
-    "action": "upsert",
-    "record_id": null,
-    "session_key": "2025-12-25_casale-vecchio-montepulciano-dabruzzo",
     "date": "2025-12-25",
     "opened_on": "2025-12-25",
     "open_day": 1,
@@ -96,12 +81,9 @@
     "country": "Italy",
     "region": "Abruzzo",
     "sub_region": "Montepulciano d'Abruzzo DOC",
-    "location": "",
+    "location": null,
     "grape_varieties": [
-      {
-        "name": "Montepulciano",
-        "percent": 100
-      }
+      { "name": "Montepulciano", "percent": 100 }
     ],
     "aroma": [
       "ブラックチェリー",
@@ -156,14 +138,11 @@
     "overall_comment": "果実味は豊かだが出過ぎず、渋みと酸は穏やか。ラムやロースト系肉料理と特に相性が良く、食卓の主役をしっかり支える一本。",
     "meta": {
       "inferred_fields": [],
-      "notes": ""
+      "notes": "料理は写真より判別。評価はユーザー指定値を反映。"
     },
     "summary_jp": "果実感と丸みのあるモンテプルチアーノ。ラムやロースト肉と好相性で、家庭ディナーをしっかり支える一本。"
   },
   {
-    "action": "upsert",
-    "record_id": null,
-    "session_key": "2025-12-25_casale-vecchio-montepulciano-dabruzzo",
     "date": "2025-12-26",
     "opened_on": "2025-12-25",
     "open_day": 2,
@@ -174,12 +153,9 @@
     "country": "Italy",
     "region": "Abruzzo",
     "sub_region": "Montepulciano d'Abruzzo DOC",
-    "location": "",
+    "location": null,
     "grape_varieties": [
-      {
-        "name": "Montepulciano",
-        "percent": 100
-      }
+      { "name": "Montepulciano", "percent": 100 }
     ],
     "aroma": [
       "ブラックチェリー",
@@ -221,16 +197,13 @@
     "overall_comment": "2日目は渋みが前に出て、果実のふくらみが引いた印象。全体としては初日より少し評価が下がる。",
     "meta": {
       "inferred_fields": [],
-      "notes": "2日目で飲み切り。"
+      "notes": "2日目の体感変化（渋み↑、果実↓）をユーザー指定で確定。2日目で飲み切り。"
     },
     "summary_jp": "2日目はタンニンが立ち、果実が引いてやや落ちる印象。"
   },
   {
-    "action": "upsert",
-    "record_id": null,
-    "session_key": "unknown_mellow-2024_unknown-location",
-    "date": "",
-    "opened_on": "",
+    "date": null,
+    "opened_on": null,
     "open_day": 1,
     "type": "White",
     "name": "mellow",
@@ -239,12 +212,9 @@
     "country": "Japan",
     "region": "岡山県",
     "sub_region": "倉敷市",
-    "location": "",
+    "location": null,
     "grape_varieties": [
-      {
-        "name": "岡山県倉敷市産ぶどう",
-        "percent": null
-      }
+      { "name": "岡山県倉敷市産ぶどう", "percent": null }
     ],
     "aroma": [
       "青りんご",
@@ -287,18 +257,16 @@
         "type",
         "aroma",
         "date",
-        "opened_on"
+        "opened_on",
+        "location"
       ],
-      "notes": ""
+      "notes": "原料ぶどう品種はラベル非公開のため未特定。低アルコール・おりありの日本ワイン。"
     },
     "summary_jp": "低アルコールでやわらかく、日常に寄り添う日本ワイン。構えず飲めるmellowな一本。"
   },
   {
-    "action": "upsert",
-    "record_id": null,
-    "session_key": "unknown_cuvee-de-la-montagnere_unknown-location",
-    "date": "",
-    "opened_on": "",
+    "date": null,
+    "opened_on": null,
     "open_day": 1,
     "type": "White",
     "name": "Cuvée de la Montagnère",
@@ -307,28 +275,13 @@
     "country": "France",
     "region": "Ardèche",
     "sub_region": "IGP Ardèche",
-    "location": "",
+    "location": null,
     "grape_varieties": [
-      {
-        "name": "Viognier",
-        "percent": 30
-      },
-      {
-        "name": "Grenache Blanc",
-        "percent": 30
-      },
-      {
-        "name": "Clairette",
-        "percent": 15
-      },
-      {
-        "name": "Floreal",
-        "percent": 15
-      },
-      {
-        "name": "Vermentino",
-        "percent": 10
-      }
+      { "name": "Viognier", "percent": 30 },
+      { "name": "Grenache Blanc", "percent": 30 },
+      { "name": "Clairette", "percent": 15 },
+      { "name": "Floreal", "percent": 15 },
+      { "name": "Vermentino", "percent": 10 }
     ],
     "aroma": [
       "白い花",
@@ -369,18 +322,16 @@
     "meta": {
       "inferred_fields": [
         "date",
-        "opened_on"
+        "opened_on",
+        "location"
       ],
-      "notes": ""
+      "notes": "品種構成・度数・認証はラベル明記。"
     },
     "summary_jp": "南仏らしい花と柑橘のニュアンスを持つ、ビオディナミの食事向き白ワイン。"
   },
   {
-    "action": "upsert",
-    "record_id": null,
-    "session_key": "unknown_cava-vinart-brut-nature-vintage_unknown-location",
-    "date": "",
-    "opened_on": "",
+    "date": null,
+    "opened_on": null,
     "open_day": 1,
     "type": "Sparkling",
     "name": "CAVA VINART Brut Nature Vintage",
@@ -389,12 +340,9 @@
     "country": "Spain",
     "region": "Catalonia",
     "sub_region": "DO Cava",
-    "location": "",
+    "location": null,
     "grape_varieties": [
-      {
-        "name": "",
-        "percent": null
-      }
+      { "name": "", "percent": null }
     ],
     "aroma": [],
     "paired_dishes": {
@@ -432,20 +380,19 @@
     "overall_comment": "",
     "meta": {
       "inferred_fields": [
+        "producer",
         "grape_varieties",
         "date",
-        "opened_on"
+        "opened_on",
+        "location"
       ],
-      "notes": ""
+      "notes": "ドサージュなしの完全辛口スパークリングとして扱った。"
     },
     "summary_jp": "糖分ゼロの完全辛口CAVA。泡と塩味・油脂の相性が良く、前菜から中盤までを整える一本。"
   },
   {
-    "action": "upsert",
-    "record_id": null,
-    "session_key": "unknown_capricorn-riesling-lion_unknown-location",
-    "date": "",
-    "opened_on": "",
+    "date": null,
+    "opened_on": null,
     "open_day": 1,
     "type": "White",
     "name": "Capricorn",
@@ -454,12 +401,9 @@
     "country": "Japan",
     "region": "岩手県",
     "sub_region": "陸前高田",
-    "location": "",
+    "location": null,
     "grape_varieties": [
-      {
-        "name": "リースリング・リオン",
-        "percent": null
-      }
+      { "name": "リースリング・リオン", "percent": null }
     ],
     "aroma": [
       "青りんご",
@@ -515,16 +459,13 @@
         "opened_on",
         "location"
       ],
-      "notes": ""
+      "notes": "神田葡萄園・陸前高田の魚介寄り設計の白ワインとして記録。"
     },
     "summary_jp": "三陸の魚介と酢飯に寄り添い、海の素材の透明感を引き出す白ワイン。"
   },
   {
-    "action": "upsert",
-    "record_id": null,
-    "session_key": "unknown_angeaile-noir_unknown-location",
-    "date": "",
-    "opened_on": "",
+    "date": null,
+    "opened_on": null,
     "open_day": 1,
     "type": "Sparkling",
     "name": "Angeaile Noir",
@@ -533,12 +474,9 @@
     "country": "France",
     "region": "",
     "sub_region": "",
-    "location": "",
+    "location": null,
     "grape_varieties": [
-      {
-        "name": "",
-        "percent": null
-      }
+      { "name": "", "percent": null }
     ],
     "aroma": [],
     "paired_dishes": {
@@ -574,6 +512,7 @@
     "meta": {
       "inferred_fields": [
         "vintage",
+        "producer",
         "region",
         "sub_region",
         "grape_varieties",
@@ -581,16 +520,13 @@
         "opened_on",
         "location"
       ],
-      "notes": ""
+      "notes": "ワインベースのフレーバード・スパークリングとして扱った。"
     },
     "summary_jp": "ワインベースのフレーバード・スパークリング。雰囲気を楽しむタイプで、繊細な刺身には主役になりにくい。"
   },
   {
-    "action": "upsert",
-    "record_id": null,
-    "session_key": "unknown_suntory-from-farm-koshu-nihon-no-shiro_unknown-location",
-    "date": "",
-    "opened_on": "",
+    "date": null,
+    "opened_on": null,
     "open_day": 1,
     "type": "White",
     "name": "Suntory FROM FARM 甲州 日本の白",
@@ -599,12 +535,9 @@
     "country": "Japan",
     "region": "山梨県",
     "sub_region": "",
-    "location": "",
+    "location": null,
     "grape_varieties": [
-      {
-        "name": "甲州",
-        "percent": null
-      }
+      { "name": "甲州", "percent": null }
     ],
     "aroma": [],
     "paired_dishes": {
@@ -654,11 +587,8 @@
     "summary_jp": "甲州らしい穏やかな酸と旨味寄りの白で、刺身と会話を静かに支える一本。"
   },
   {
-    "action": "upsert",
-    "record_id": null,
-    "session_key": "unknown_tiwari-prestige-cuvee-rose-brut-vintage_unknown-location",
-    "date": "",
-    "opened_on": "",
+    "date": null,
+    "opened_on": null,
     "open_day": 1,
     "type": "Sparkling",
     "name": "TIWARI Prestige Cuvée Rosé Brut Vintage",
@@ -667,12 +597,9 @@
     "country": "Hungary",
     "region": "",
     "sub_region": "",
-    "location": "",
+    "location": null,
     "grape_varieties": [
-      {
-        "name": "",
-        "percent": null
-      }
+      { "name": "", "percent": null }
     ],
     "aroma": [],
     "paired_dishes": {
@@ -724,11 +651,8 @@
     "summary_jp": "ロゼの泡が藁焼きカツオの苦味を洗い、後味のキレを増す。炙りの香ばしさが主役の夜。"
   },
   {
-    "action": "upsert",
-    "record_id": null,
-    "session_key": "unknown_jammertal-borbirtok-villany-merlot_bbq",
-    "date": "",
-    "opened_on": "",
+    "date": null,
+    "opened_on": null,
     "open_day": 1,
     "type": "Red",
     "name": "Jammertal Borbirtok Villány Merlot",
@@ -739,10 +663,7 @@
     "sub_region": "PDO Villány",
     "location": "BBQ",
     "grape_varieties": [
-      {
-        "name": "Merlot",
-        "percent": null
-      }
+      { "name": "Merlot", "percent": null }
     ],
     "aroma": [],
     "paired_dishes": {
@@ -792,11 +713,8 @@
     "summary_jp": "炭火とタレ、肉の脂を受け止め、最後はチーズで角が消える。ワインが料理に育てられた日。"
   },
   {
-    "action": "upsert",
-    "record_id": null,
-    "session_key": "unknown_estate-goichi-pinot-noir_unknown-location",
-    "date": "",
-    "opened_on": "",
+    "date": null,
+    "opened_on": null,
     "open_day": 1,
     "type": "Red",
     "name": "エステートゴイチ ピノ・ノワール",
@@ -807,10 +725,7 @@
     "sub_region": "塩尻市",
     "location": "長野",
     "grape_varieties": [
-      {
-        "name": "ピノ・ノワール",
-        "percent": null
-      }
+      { "name": "ピノ・ノワール", "percent": null }
     ],
     "aroma": [
       "イチゴ",
@@ -858,9 +773,6 @@
     "summary_jp": "若い塩尻ピノの果実味が主役。ブラックペッパーゴーダが立体感を与える、長野らしい締めの一杯。"
   },
   {
-    "action": "upsert",
-    "record_id": null,
-    "session_key": "2026-03-02_ringo-gakko-oaky_unknown-location",
     "date": "2026-03-02",
     "opened_on": "2026-03-02",
     "open_day": 1,
@@ -871,16 +783,10 @@
     "country": "Japan",
     "region": "長野県",
     "sub_region": "飯綱町",
-    "location": "",
+    "location": null,
     "grape_varieties": [
-      {
-        "name": "シナノドルチェ",
-        "percent": null
-      },
-      {
-        "name": "紅玉",
-        "percent": null
-      }
+      { "name": "シナノドルチェ", "percent": null },
+      { "name": "紅玉", "percent": null }
     ],
     "aroma": [
       "青りんご"

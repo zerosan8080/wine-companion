@@ -28,6 +28,10 @@ async function main() {
   fs.mkdirSync(outputDir, { recursive: true });
 
   const normalizedEntries = source.map((record, index) => normalizeLegacyRecord(record, index));
+  const existingRecordMap = options.existingRecordMap
+    ? loadExistingRecordMap(path.resolve(process.cwd(), options.existingRecordMap))
+    : new Map();
+  applyExistingRecordIds(normalizedEntries, existingRecordMap);
   const readyEntries = normalizedEntries.filter((entry) => entry.status === "ready");
   const reviewEntries = normalizedEntries.filter((entry) => entry.status === "needs_review");
   const report = buildReport(normalizedEntries, options, inputPath);
@@ -121,6 +125,7 @@ function parseArgs(argv) {
     apiKey: "",
     limit: 0,
     stopOnError: false,
+    existingRecordMap: "",
   };
 
   for (let index = 0; index < argv.length; index += 1) {
@@ -152,6 +157,12 @@ function parseArgs(argv) {
 
     if (arg === "--limit") {
       options.limit = Number(argv[index + 1] || "0");
+      index += 1;
+      continue;
+    }
+
+    if (arg === "--existing-record-map") {
+      options.existingRecordMap = argv[index + 1] || "";
       index += 1;
       continue;
     }
@@ -455,11 +466,75 @@ function buildReport(entries, options, inputPath) {
     generated_at: new Date().toISOString(),
     source_file: path.relative(process.cwd(), inputPath),
     output_mode: options.push ? "prepare_and_push" : "prepare_only",
+    existing_record_map: options.existingRecordMap || null,
     total_records: entries.length,
     ready_records: entries.filter((entry) => entry.status === "ready").length,
     review_records: entries.filter((entry) => entry.status === "needs_review").length,
     issue_counts: issueCounts,
   };
+}
+
+function loadExistingRecordMap(filePath) {
+  const source = JSON.parse(fs.readFileSync(filePath, "utf8"));
+  const map = new Map();
+  const rows = Array.isArray(source) ? source : [];
+
+  rows.forEach((row) => {
+    const responseRecord = row && row.response && row.response.record;
+    if (!responseRecord || !responseRecord.record_id) {
+      return;
+    }
+
+    const strictKey = buildRecordLookupKey(
+      row.session_key || responseRecord.session_key,
+      responseRecord.date,
+      responseRecord.open_day,
+      row.record_name || responseRecord.name
+    );
+    const fallbackKey = buildFallbackRecordLookupKey(
+      responseRecord.date,
+      responseRecord.open_day,
+      row.record_name || responseRecord.name
+    );
+
+    map.set(strictKey, responseRecord.record_id);
+    map.set(fallbackKey, responseRecord.record_id);
+  });
+
+  return map;
+}
+
+function applyExistingRecordIds(entries, existingRecordMap) {
+  entries.forEach((entry) => {
+    const strictKey = buildRecordLookupKey(
+      entry.record.session_key,
+      entry.record.date,
+      entry.record.open_day,
+      entry.record.name
+    );
+    const fallbackKey = buildFallbackRecordLookupKey(
+      entry.record.date,
+      entry.record.open_day,
+      entry.record.name
+    );
+    const matchedRecordId =
+      existingRecordMap.get(strictKey) || existingRecordMap.get(fallbackKey);
+
+    if (matchedRecordId) {
+      entry.record.record_id = matchedRecordId;
+      entry.warnings.push(
+        buildIssue("existing_record_id_applied", "record_id was populated from an existing import result to avoid duplicate inserts.")
+      );
+    }
+  });
+}
+
+function buildRecordLookupKey(sessionKey, date, openDay, name) {
+  return [sessionKey || "", date || "", String(openDay || ""), name || ""].join("|");
+}
+
+function buildFallbackRecordLookupKey(date, openDay, name) {
+  return [date || "", String(openDay || ""), name || ""].join("|");
 }
 
 function writeJson(filePath, value) {

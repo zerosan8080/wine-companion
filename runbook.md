@@ -122,6 +122,18 @@ npm run migrate:legacy -- \
   --api-key "YOUR_API_KEY"
 ```
 
+既存投入済みデータの再反映で重複を避けたい場合:
+
+```bash
+npm run migrate:legacy -- \
+  --input ./path/to/legacy-records.json \
+  --output-dir ./migration-output/reimport \
+  --existing-record-map ./migration-output/legacy-2026-03-08/import-results.json \
+  --push \
+  --endpoint "https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec" \
+  --api-key "YOUR_API_KEY"
+```
+
 必要なら件数を絞る:
 
 ```bash
