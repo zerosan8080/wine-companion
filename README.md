@@ -430,6 +430,8 @@ curl -L -X POST "https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec" \
 - `POST` の body に `_api_key` を含める
 - `action` は `upsertRecord` など実装済み action 名に固定する
 - schema テンプレートは [`openapi/gpts-action.schema.json`](/Users/zero/WorkSpace/Wine-companion-ai/openapi/gpts-action.schema.json) を使う
+- 保存タイミングの GPTs instruction は [`docs/gpts-save-confirmation-policy.md`](/Users/zero/WorkSpace/Wine-companion-ai/docs/gpts-save-confirmation-policy.md) を使う
+- 保存前後の表現ルールも同ファイルに含める
 
 GPTs に貼る前に次の 2 箇所を置換してください。
 
@@ -443,6 +445,17 @@ GPTs に貼る前に次の 2 箇所を置換してください。
 `health`、`upsertRecord`、`getRecord`、`getSession`、`findSession`、`listRecentRecords`、`rebuildSession`、`rebuildUserProfile` 以外の action は使わないこと。
 `upsertRecord` では action に加えて、date, opened_on, open_day, type, name を必ず含めること。
 ```
+
+### Recommended Save Timing
+
+運用上は、会話中に自動保存させないほうが安定します。
+
+- 会話しただけでは保存しない
+- まず内容を日本語で要約する
+- その後に「この内容で保存しますか？」と確認する
+- ユーザーが明示承認したときだけ `upsertRecord` を呼ぶ
+
+この保存確認フローの完全版は [`docs/gpts-save-confirmation-policy.md`](/Users/zero/WorkSpace/Wine-companion-ai/docs/gpts-save-confirmation-policy.md) を参照してください。
 
 ## Legacy Chat Migration
 

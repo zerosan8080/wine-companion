@@ -86,6 +86,17 @@ curl -L -G "https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec" \
 - 同一 `session_key` の複数保存で `WineSession` が更新されるか
 - `rebuildUserProfile` 後に `source_record_count` が増えるか
 
+## GPT Save Policy
+
+日常運用では、GPTs に自動保存させないでください。
+
+- 会話途中では保存しない
+- 内容要約を出してから保存確認を出す
+- ユーザーが承認したときだけ `upsertRecord` を呼ぶ
+- day 2 / day 3 は同じ `session_key` の新規 snapshot として保存する
+
+GPTs の instruction テンプレートは [`docs/gpts-save-confirmation-policy.md`](/Users/zero/WorkSpace/Wine-companion-ai/docs/gpts-save-confirmation-policy.md) を使います。
+
 ## Historical Migration Procedure
 
 過去チャットを JSON 化したデータを本番投入するときは、必ず 2 段階で実施します。
